@@ -103,10 +103,21 @@ public class Screen extends Canvas {
 	 */
 	public void renderScene() {
 		// Calculate and draw many points on the sphere.
-		for (double a = -Math.PI / 2; a < Math.PI / 2; a += Math.PI / 32) {
+		/*for (double a = -Math.PI / 2; a < Math.PI / 2; a += Math.PI / 32) {
 			for (double b = 0; b < Math.PI * 2; b += Math.PI / 32) {
 				drawPoint(new Vector3(Math.sin(b) * Math.cos(a) * 10 + 15, Math.sin(a) * 10 + 55, Math.cos(b) * Math.cos(a) * 10 + 15), 0xFFFFFF);
 			}
+		}*/
+		double N = 500;
+		double inc = Math.PI * (3.0 - Math.sqrt(5));
+		Vector3 center = new Vector3(15, 55, 15);
+		double off = 2 / N;
+		for (int k = 0; k < N; k++) {
+			double y = k * off - 1.0 + (off / 2.0);
+			double r = Math.sqrt(1 - y * y);
+			double phi = k * inc;
+			Vector3 vec = new Vector3(Math.cos(phi + System.currentTimeMillis() / 1000.0) * r, y, Math.sin(phi + System.currentTimeMillis() / 1000.0) * r);
+			drawPoint(center.add(vec.multiply(10)), 0xFFFFFF);
 		}
 		
 		// The 8 points on the cube.
